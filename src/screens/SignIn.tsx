@@ -1,9 +1,11 @@
-import { View, Text } from 'react-native';
+import { Heading, VStack } from 'native-base';
 
 export const SignIn = () => {
   return (
-    <View>
-      <Text>Hello world</Text>
-    </View>
-  )
-}
+    <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
+      <Heading color="gray.100" fontSize="xl" mt={20} mb={6}>
+        Access your account
+      </Heading>
+    </VStack>
+  );
+};
