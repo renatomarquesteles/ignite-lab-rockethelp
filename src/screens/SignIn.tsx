@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Heading, Icon, useTheme, VStack } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -6,7 +7,14 @@ import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
 export const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const { colors } = useTheme();
+
+  const handleSignIn = () => {
+    console.log({ email, password });
+  };
 
   return (
     <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
@@ -26,6 +34,7 @@ export const SignIn = () => {
             ml={4}
           />
         }
+        onChangeText={setEmail}
       />
       <Input
         placeholder="Password"
@@ -37,9 +46,10 @@ export const SignIn = () => {
           />
         }
         secureTextEntry
+        onChangeText={setPassword}
       />
 
-      <Button title="Login" w="full" />
+      <Button title="Login" w="full" onPress={handleSignIn} />
     </VStack>
   );
 };
