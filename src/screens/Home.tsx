@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  Center,
   FlatList,
   Heading,
   HStack,
@@ -13,25 +14,13 @@ import { Ionicons } from '@expo/vector-icons';
 import Logo from '../assets/logo_secondary.svg';
 import { Filter } from '../components/Filter';
 import { Order, OrderProps } from '../components/Order';
+import { Button } from '../components/Button';
 
 export function Home() {
   const [selectedStatus, setSelectedStatus] = useState<'open' | 'closed'>(
     'open'
   );
-  const [orders, setOrders] = useState<OrderProps[]>([
-    {
-      id: '1',
-      patrimony: '12415',
-      when: '07-18-2022 at 8 pm',
-      status: 'open',
-    },
-    {
-      id: '2',
-      patrimony: '42362362',
-      when: '07-18-2022 at 8 pm',
-      status: 'closed',
-    },
-  ]);
+  const [orders, setOrders] = useState<OrderProps[]>([]);
 
   const { colors } = useTheme();
 
@@ -86,7 +75,25 @@ export function Home() {
           data={orders}
           keyExtractor={(order) => order.id}
           renderItem={({ item }) => <Order data={item} />}
+          contentContainerStyle={{ paddingBottom: 100 }}
+          ListEmptyComponent={() => (
+            <Center>
+              <Ionicons
+                name="chatbubble-ellipses-outline"
+                size={40}
+                color={colors.gray[300]}
+              />
+              <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
+                There are no{'\n'}
+                {selectedStatus === 'open'
+                  ? 'requests in progress'
+                  : 'finished requests'}
+              </Text>
+            </Center>
+          )}
         />
+
+        <Button title="New request" />
       </VStack>
     </VStack>
   );
