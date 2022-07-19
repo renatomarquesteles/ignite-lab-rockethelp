@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  FlatList,
   Heading,
   HStack,
   IconButton,
@@ -11,11 +12,27 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Logo from '../assets/logo_secondary.svg';
 import { Filter } from '../components/Filter';
+import { Order, OrderProps } from '../components/Order';
 
 export function Home() {
   const [selectedStatus, setSelectedStatus] = useState<'open' | 'closed'>(
     'open'
   );
+  const [orders, setOrders] = useState<OrderProps[]>([
+    {
+      id: '1',
+      patrimony: '12415',
+      when: '07-18-2022 at 8 pm',
+      status: 'open',
+    },
+    {
+      id: '2',
+      patrimony: '42362362',
+      when: '07-18-2022 at 8 pm',
+      status: 'closed',
+    },
+  ]);
+
   const { colors } = useTheme();
 
   return (
@@ -46,7 +63,7 @@ export function Home() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Heading color="gray.100">My Tickets</Heading>
+          <Heading color="gray.100">Requests</Heading>
           <Text color="gray.200">3</Text>
         </HStack>
 
@@ -64,6 +81,12 @@ export function Home() {
             isActive={selectedStatus === 'closed'}
           />
         </HStack>
+
+        <FlatList
+          data={orders}
+          keyExtractor={(order) => order.id}
+          renderItem={({ item }) => <Order data={item} />}
+        />
       </VStack>
     </VStack>
   );
