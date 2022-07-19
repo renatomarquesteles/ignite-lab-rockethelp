@@ -6,6 +6,7 @@ import {
   useTheme,
 } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = StyledProps & {
   title: string;
@@ -13,6 +14,11 @@ type Props = StyledProps & {
 
 export function Header({ title, ...rest }: Props) {
   const { colors } = useTheme();
+  const navigation = useNavigation();
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
 
   return (
     <HStack
@@ -32,6 +38,8 @@ export function Header({ title, ...rest }: Props) {
             color={colors.gray[200]}
           />
         }
+        onPress={handleGoBack}
+        zIndex={1}
       />
 
       <Heading

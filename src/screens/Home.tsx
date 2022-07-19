@@ -10,6 +10,7 @@ import {
   VStack,
 } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 import Logo from '../assets/logo_secondary.svg';
 import { Filter } from '../components/Filter';
@@ -23,6 +24,11 @@ export function Home() {
   const [orders, setOrders] = useState<OrderProps[]>([]);
 
   const { colors } = useTheme();
+  const navigation = useNavigation();
+
+  const handleNewRequest = () => {
+    navigation.navigate('register');
+  };
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -93,7 +99,7 @@ export function Home() {
           )}
         />
 
-        <Button title="New request" />
+        <Button title="New request" onPress={handleNewRequest} />
       </VStack>
     </VStack>
   );
