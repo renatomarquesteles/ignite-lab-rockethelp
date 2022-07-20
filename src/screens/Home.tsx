@@ -70,7 +70,7 @@ export function Home() {
           alignItems="center"
         >
           <Heading color="gray.100">Requests</Heading>
-          <Text color="gray.200">3</Text>
+          <Text color="gray.200">{orders.length}</Text>
         </HStack>
 
         <HStack space={3} mb={8}>
