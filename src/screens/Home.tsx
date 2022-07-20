@@ -21,13 +21,24 @@ export function Home() {
   const [selectedStatus, setSelectedStatus] = useState<'open' | 'closed'>(
     'open'
   );
-  const [orders, setOrders] = useState<OrderProps[]>([]);
+  const [orders, setOrders] = useState<OrderProps[]>([
+    {
+      id: '1',
+      patrimony: '123456789',
+      when: '2022-07-20 at 10:00',
+      status: 'open',
+    },
+  ]);
 
   const { colors } = useTheme();
   const navigation = useNavigation();
 
   const handleNewRequest = () => {
     navigation.navigate('register');
+  };
+
+  const handleOpenDetails = (orderId: string) => {
+    navigation.navigate('details', { orderId });
   };
 
   return (
@@ -80,7 +91,9 @@ export function Home() {
         <FlatList
           data={orders}
           keyExtractor={(order) => order.id}
-          renderItem={({ item }) => <Order data={item} />}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
           contentContainerStyle={{ paddingBottom: 100 }}
           ListEmptyComponent={() => (
             <Center>
